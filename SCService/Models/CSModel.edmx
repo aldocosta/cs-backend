@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="aldocosta01Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DEVICE">
+          <Key>
+            <PropertyRef Name="uuid" />
+          </Key>
+          <Property Name="uuid" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="dateRegistro" Type="datetime" Precision="0" />
+          <Property Name="nmModel" Type="varchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="LISTA_CONTATOS">
+          <Key>
+            <PropertyRef Name="idLISTA_CONTATOS" />
+          </Key>
+          <Property Name="idLISTA_CONTATOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uuid" Type="varchar" MaxLength="100" />
+          <Property Name="contact_list" Type="longtext" />
+          <Property Name="hashcode" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="fklc_uuid">
+          <End Role="DEVICE" Type="Self.DEVICE" Multiplicity="0..1" />
+          <End Role="LISTA_CONTATOS" Type="Self.LISTA_CONTATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVICE">
+              <PropertyRef Name="uuid" />
+            </Principal>
+            <Dependent Role="LISTA_CONTATOS">
+              <PropertyRef Name="uuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aldocosta01ModelStoreContainer">
+          <EntitySet Name="DEVICE" EntityType="Self.DEVICE" Schema="aldocosta01" store:Type="Tables" />
+          <EntitySet Name="LISTA_CONTATOS" EntityType="Self.LISTA_CONTATOS" Schema="aldocosta01" store:Type="Tables" />
+          <AssociationSet Name="fklc_uuid" Association="Self.fklc_uuid">
+            <End Role="DEVICE" EntitySet="DEVICE" />
+            <End Role="LISTA_CONTATOS" EntitySet="LISTA_CONTATOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="aldocosta01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="aldocosta01Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DEVICE" EntityType="aldocosta01Model.DEVICE" />
+          <EntitySet Name="LISTA_CONTATOS" EntityType="aldocosta01Model.LISTA_CONTATOS" />
+          <AssociationSet Name="fklc_uuid" Association="aldocosta01Model.fklc_uuid">
+            <End Role="DEVICE" EntitySet="DEVICE" />
+            <End Role="LISTA_CONTATOS" EntitySet="LISTA_CONTATOS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DEVICE">
+          <Key>
+            <PropertyRef Name="uuid" />
+          </Key>
+          <Property Name="uuid" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="dateRegistro" Type="DateTime" />
+          <Property Name="nmModel" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LISTA_CONTATOS" Relationship="aldocosta01Model.fklc_uuid" FromRole="DEVICE" ToRole="LISTA_CONTATOS" />
+        </EntityType>
+        <EntityType Name="LISTA_CONTATOS">
+          <Key>
+            <PropertyRef Name="idLISTA_CONTATOS" />
+          </Key>
+          <Property Name="idLISTA_CONTATOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uuid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contact_list" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DEVICE" Relationship="aldocosta01Model.fklc_uuid" FromRole="LISTA_CONTATOS" ToRole="DEVICE" />
+          <Property Name="hashcode" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="fklc_uuid">
+          <End Type="aldocosta01Model.DEVICE" Role="DEVICE" Multiplicity="0..1" />
+          <End Type="aldocosta01Model.LISTA_CONTATOS" Role="LISTA_CONTATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVICE">
+              <PropertyRef Name="uuid" />
+            </Principal>
+            <Dependent Role="LISTA_CONTATOS">
+              <PropertyRef Name="uuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="aldocosta01ModelStoreContainer" CdmEntityContainer="aldocosta01Entities">
+          <EntitySetMapping Name="DEVICE">
+            <EntityTypeMapping TypeName="aldocosta01Model.DEVICE">
+              <MappingFragment StoreEntitySet="DEVICE">
+                <ScalarProperty Name="nmModel" ColumnName="nmModel" />
+                <ScalarProperty Name="dateRegistro" ColumnName="dateRegistro" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LISTA_CONTATOS">
+            <EntityTypeMapping TypeName="aldocosta01Model.LISTA_CONTATOS">
+              <MappingFragment StoreEntitySet="LISTA_CONTATOS">
+                <ScalarProperty Name="hashcode" ColumnName="hashcode" />
+                <ScalarProperty Name="contact_list" ColumnName="contact_list" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="idLISTA_CONTATOS" ColumnName="idLISTA_CONTATOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
