@@ -21,6 +21,7 @@
           <Property Name="uuid" Type="varchar" MaxLength="100" />
           <Property Name="contact_list" Type="longtext" />
           <Property Name="hashcode" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="dtCriacao" Type="datetime" Precision="0" />
         </EntityType>
         <Association Name="fklc_uuid">
           <End Role="DEVICE" Type="Self.DEVICE" Multiplicity="0..1" />
@@ -70,8 +71,9 @@
           <Property Name="idLISTA_CONTATOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="uuid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="contact_list" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DEVICE" Relationship="aldocosta01Model.fklc_uuid" FromRole="LISTA_CONTATOS" ToRole="DEVICE" />
           <Property Name="hashcode" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="dtCriacao" Type="DateTime" />
+          <NavigationProperty Name="DEVICE" Relationship="aldocosta01Model.fklc_uuid" FromRole="LISTA_CONTATOS" ToRole="DEVICE" />
         </EntityType>
         <Association Name="fklc_uuid">
           <End Type="aldocosta01Model.DEVICE" Role="DEVICE" Multiplicity="0..1" />
@@ -103,6 +105,7 @@
           <EntitySetMapping Name="LISTA_CONTATOS">
             <EntityTypeMapping TypeName="aldocosta01Model.LISTA_CONTATOS">
               <MappingFragment StoreEntitySet="LISTA_CONTATOS">
+                <ScalarProperty Name="dtCriacao" ColumnName="dtCriacao" />
                 <ScalarProperty Name="hashcode" ColumnName="hashcode" />
                 <ScalarProperty Name="contact_list" ColumnName="contact_list" />
                 <ScalarProperty Name="uuid" ColumnName="uuid" />

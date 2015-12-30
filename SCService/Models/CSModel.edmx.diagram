@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="07a8b3e330884164a8d7cb8e61754d46" Name="Diagram1">
         <EntityTypeShape EntityType="aldocosta01Model.DEVICE" Width="1.5" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="aldocosta01Model.LISTA_CONTATOS" Width="1.5" PointX="2.875" PointY="2.125" />
+        <EntityTypeShape EntityType="aldocosta01Model.LISTA_CONTATOS" Width="1.5" PointX="3.375" PointY="1" />
         <AssociationConnector Association="aldocosta01Model.fklc_uuid" />
       </Diagram>
     </edmx:Diagrams>

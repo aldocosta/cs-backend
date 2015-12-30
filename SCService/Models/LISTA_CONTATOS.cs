@@ -18,6 +18,7 @@ namespace SCService.Models
         public string uuid { get; set; }
         public string contact_list { get; set; }
         public string hashcode { get; set; }
+        public Nullable<System.DateTime> dtCriacao { get; set; }
     
         public virtual DEVICE DEVICE { get; set; }
     }

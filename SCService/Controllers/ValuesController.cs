@@ -25,7 +25,7 @@ namespace SCService.Controllers
         /// <returns></returns>
         public string GetVerifyuuid(string uuid)
         {
-            
+
             var device = db.DEVICE.Where(p => p.uuid == uuid).FirstOrDefault();
             string action = "Device registrado";
             if (device == null)
@@ -62,6 +62,7 @@ namespace SCService.Controllers
         // POST api/values
         public HttpResponseMessage PostContacts([FromBody]CS contact)
         {
+            ClearBase();
             var hashcode = DateTime.Now.ToLongTimeString().GetHashCode();
             var datacriacao = DateTime.Now;
 
@@ -69,10 +70,28 @@ namespace SCService.Controllers
             lc.uuid = contact.uuid;
             lc.contact_list = contact.contactListJson;
             lc.hashcode = hashcode.ToString();
+            lc.dtCriacao = datacriacao;
             db.LISTA_CONTATOS.Add(lc);
             db.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.OK, hashcode.ToString());
+        }
+
+        private void ClearBase()
+        {
+            var horaagora = DateTime.Now;
+
+            var ret = db.LISTA_CONTATOS;
+
+            foreach (var item in ret)
+            {
+                var retorno = horaagora - item.dtCriacao;
+                if (retorno.Value.Days >= 1)
+                {
+                    db.LISTA_CONTATOS.Remove(item);
+                }
+            }
+            db.SaveChanges();
         }
 
         // PUT api/values/5
